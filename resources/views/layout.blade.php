@@ -8,13 +8,25 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container">
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="{{ url('/') }}">Главная</a></li>
-            <li class="list-inline-item"><a href="">Новости</a></li>
-            <li class="list-inline-item"><a href="">Галерея</a></li>
-        </ul>
-    </div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-5">
+        <div class="container d-flex justify-content-between">
+            <a class="navbar-brand" href="{{ url('/') }}">Study QA</a>
+
+            <div>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url('/') }}">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Новости</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Галерея</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     @yield('content')
 </body>
 <footer>
