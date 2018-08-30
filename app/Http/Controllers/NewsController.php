@@ -48,7 +48,9 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        //
+        $new = News::whereId($id)->firstOrFail();
+
+        return view('show', compact('new'));
     }
 
     /**
