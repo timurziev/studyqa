@@ -15,10 +15,14 @@ Route::get('/', 'HomeController@show');
 
 Route::group(['middleware' => 'admin'], function () {
 
-    Route::get('text/edit', 'HomeController@edit')->name('text/edit');
+    Route::get('text/edit', 'HomeController@edit')->name('text.edit');
+    Route::post('text/update', 'HomeController@update')->name('text.update');
 
-    Route::post('text/update', 'HomeController@update')->name('text/update');
-
+    Route::get('news/create', 'NewsController@create')->name('news.create');
+    Route::post('news/store', 'NewsController@store')->name('news.store');
+    Route::get('news/edit/{id}', 'NewsController@edit')->name('news.edit');
+    Route::post('news/update/{id}', 'NewsController@update')->name('news.update');
+    Route::delete('news/delete/{id}', 'NewsController@destroy')->name('news.delete');
 });
 
 
@@ -26,7 +30,6 @@ Route::get('news', 'NewsController@index')->name('news');
 Route::get('show/{id}', 'NewsController@show')->name('show');
 
 Route::get('gallery', 'GalleryController@index')->name('gallery');
-
 
 Auth::routes();
 

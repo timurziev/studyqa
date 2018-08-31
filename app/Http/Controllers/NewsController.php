@@ -14,7 +14,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::orderBy('created_at')->paginate(2);
+        $news = News::orderBy('created_at', 'desc')->paginate(12);
 
         return view('news', compact('news'));
     }
@@ -26,7 +26,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        //
+        return view('create_edit');
     }
 
     /**
@@ -37,7 +37,12 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $new = new News;
+        $image = News::storeImage($request['image']);
+        $fields = array_merge($request->except('image'), ['image' => $image]);
+        $new = $new->create($fields);
+
+        return redirect()->route('show', $new->id);
     }
 
     /**
@@ -61,7 +66,9 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $new = News::whereId($id)->firstOrFail();
+
+        return view('create_edit', compact('new'));
     }
 
     /**
@@ -73,7 +80,19 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $new = News::whereId($id)->firstOrFail();
+        $image = $new->image;
+
+        if ($request->file('image'))
+        {
+            $name = News::storeImage($request['image']);
+
+            $image = $name;
+        }
+
+        $new->update(['title' => $request['title'], 'text' => $request['text'], 'image' => $image]);
+
+        return redirect()->route('show', $new->id);
     }
 
     /**
@@ -84,6 +103,9 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $new = News::whereId($id)->firstOrFail();
+        $new->delete();
+
+        return redirect()->route('news');
     }
 }
