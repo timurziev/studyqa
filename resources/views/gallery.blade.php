@@ -9,5 +9,6 @@
                 </div>
             @endforeach
         </div>
+        <div>{{$images->render()}}</div>
     </div>
 @endsection

@@ -11,11 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::get('/', 'HomeController@show');
+
+Route::group(['middleware' => 'admin'], function () {
+
+    Route::get('text/edit', 'HomeController@edit')->name('text/edit');
+
+    Route::post('text/update', 'HomeController@update')->name('text/update');
+
 });
+
+
 Route::get('news', 'NewsController@index')->name('news');
 Route::get('show/{id}', 'NewsController@show')->name('show');
 
 Route::get('gallery', 'GalleryController@index')->name('gallery');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
