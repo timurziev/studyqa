@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Gallery;
+use Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Image;
 
 class GalleryController extends Controller
 {
@@ -37,7 +40,24 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $image = new Gallery;
+
+        $input = Input::file('file');
+
+        $extension = $input->getClientOriginalExtension();
+
+        $fileName = rand(11111, 99999) . '.' . $extension;
+
+        $destinationPath = public_path('uploads/' . $fileName);
+
+        $upload = Image::make($input)->fit(800, 800)->save($destinationPath);
+
+
+        if ($upload) {
+            $image->create(['image' => $fileName]);
+        } else {
+            return Response::json('error', 400);
+        }
     }
 
     /**

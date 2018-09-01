@@ -23,8 +23,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('news/edit/{id}', 'NewsController@edit')->name('news.edit');
     Route::post('news/update/{id}', 'NewsController@update')->name('news.update');
     Route::delete('news/delete/{id}', 'NewsController@destroy')->name('news.delete');
-});
 
+    Route::post('file-upload', 'GalleryController@store')->name('file-upload');
+});
 
 Route::get('news', 'NewsController@index')->name('news');
 Route::get('show/{id}', 'NewsController@show')->name('show');
